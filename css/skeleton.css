@@ -33,7 +33,7 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
-  box-sizing: border-box; }
+  box-sizing: border-box;}
 .column,
 .columns {
   width: 100%;
@@ -170,13 +170,13 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"] {
   display: inline-block;
-  height: 38px;
-  padding: 0 30px;
+  height: 30px;
+  padding: 0 20px;
   color: #555;
   text-align: center;
   font-size: 11px;
   font-weight: 600;
-  line-height: 38px;
+  line-height: 30px;
   letter-spacing: .1rem;
   text-transform: uppercase;
   text-decoration: none;
@@ -186,11 +186,12 @@ input[type="button"] {
   border: 1px solid #bbb;
   cursor: pointer;
   box-sizing: border-box; }
-.button:hover,
 button:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
-input[type="button"]:hover,
+input[type="button"]:hover {
+  background-color: #ddd;
+  },
 .button:focus,
 button:focus,
 input[type="submit"]:focus,
@@ -220,7 +221,11 @@ input[type="button"].button-primary:focus {
   color: #FFF;
   background-color: #1EAEDB;
   border-color: #1EAEDB; }
-
+/* Add a dark background to the active button */
+.button.active {
+    background-color: #666;
+    color: white;
+  }
 
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -303,7 +308,6 @@ ol ul {
   font-size: 90%; }
 li {
   margin-bottom: 1rem; }
-
 
 /* Code
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -421,6 +425,30 @@ there.
 
 /* Additions
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.filterSection li {
+    list-style: none;
+    margin: 0px;
+    padding: 5px;
+    display: inline;
+
+}
+.filterSection {
+    margin: 0px;
+    padding: 0px;
+    width: 100%
+}
+
+#itemsToFilter li {
+    list-style: ordered;
+    /* background-position: 0 3px; */
+    background-repeat: no-repeat;
+    margin: 15px;
+    padding-left: 30px;
+    font-size: 11pt;
+    color: #666;
+}
+
+
 /*
 These are customizations to the base theme for iaindunning.com
 */
