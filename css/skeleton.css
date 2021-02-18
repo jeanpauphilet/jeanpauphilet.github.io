@@ -441,13 +441,17 @@ there.
 }
 
 #itemsToFilter li {
-    list-style: ordered;
+    list-style: none;
     /* background-position: 0 3px; */
     background-repeat: no-repeat;
-    margin: 15px;
-    padding-left: 30px;
+    margin: 5px;
+    padding-left: 10px;
     font-size: 11pt;
     color: #666;
+}
+
+#itemsToFilter li[data-type=method] {
+    background-image: url("//www.kirupa.com/mini_icons/entypo/small_leaf.png");
 }
 
 
