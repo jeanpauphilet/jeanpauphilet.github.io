@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <title>Jean Pauphilet</title>
   <meta name="description" content="">
-  <meta name="author" content="Jean Pauphilet">
+  <meta name="author" content="">
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -15,7 +15,7 @@
 
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -26,19 +26,89 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145332417-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145332417-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'UA-145332417-1');
-  </script> -->
+  </script>
 
+  <style>
+  input[type="radio"] {
+      position: absolute;
+      left: -9999px;
+    }
+    :root {
+      --black: #1a1a1a;
+      --white: #fff;
+      --green: #0431B4;
+    }
+
+    .filters {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .filters * {
+      display: inline-block;
+    }
+    .filters label {
+      text-align: center;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.25rem;
+      border-radius: 2rem;
+      min-width: 50px;
+      line-height: normal;
+      cursor: pointer;
+      transition: all 0.1s;
+      border-style: solid;
+      border-width: 1px;
+      border-color: var(--white);
+    }
+    .filters label:hover {
+      background: var(--white);
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .posts {
+      display: list
+    }
+    .posts .post {
+      display: inline-list
+    }
+
+    [value="all"]:checked ~ .posts [data-type] {
+      display: list;
+    }
+    [value="method"]:checked ~ .posts .post:not([data-type~="method"]),
+    [value="application"]:checked ~ .posts .post:not([data-type~="application"]),
+    [value="ml"]:checked ~ .posts .post:not([data-type~="ml"]),
+    [value="robust"]:checked ~ .posts .post:not([data-type~="robust"]),
+    [value="mio"]:checked ~ .posts .post:not([data-type~="mio"]),
+    [value="healthcare"]:checked ~ .posts .post:not([data-type~="healthcare"]),
+    [value="engineering"]:checked ~ .posts .post:not([data-type~="engineering"])
+     {
+      display: none;
+    }
+
+    /* [value="all"]:checked ~ .filters [for="all"], */
+    [value="method"]:checked ~ .filters [for="method"],
+    [value="application"]:checked ~ .filters [for="application"],
+    [value="ml"]:checked ~ .filters [for="ml"],
+    [value="robust"]:checked ~ .filters [for="robust"] ,
+    [value="mio"]:checked ~ .filters [for="mio"],
+    [value="healthcare"]:checked ~ .filters [for="healthcare"],
+    [value="engineering"]:checked ~ .filters [for="engineering"]
+    {
+      background: var(--white);
+      color: var(--green);
+      border-color: var(--green);
+    }
+    </style>
 </head>
 <body>
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
 
     <div class="row">
@@ -46,71 +116,115 @@
         <br> <br>
         <h3>Publications</h3>
       </div>
+
       <div class="twelve columns" style="margin-top: 0%">
-        <ol reversed>
-          <li data-type="method robust">
+        <input type="radio" id="all" name="categories" value="all" checked>
+        <input type="radio" id="method" name="categories" value="method">
+        <input type="radio" id="application" name="categories" value="application">
+        <input type="radio" id="ml" name="categories" value="ml">
+        <input type="radio" id="robust" name="categories" value="robust">
+        <input type="radio" id="mio" name="categories" value="mio">
+        <input type="radio" id="healthcare" name="categories" value="healthcare">
+        <input type="radio" id="engineering" name="categories" value="engineering">
+        <ol class="filters" style="display:inline; ">
+          Filters
+          <li>
+            <label for="all">Show all</label>
+          </li>
+          <li>
+            <label for="healthcare">Healthcare</label>
+          </li>
+          <li>
+            <label for="ml">Machine Learning</label>
+          </li>
+          <li>
+            <label for="mio">Discrete optimization</label>
+          </li>
+          <li>
+            <label for="robust">Robust optimization</label>
+          </li>
+          <li>
+            <label for="engineering">Misc.</label>
+          </li>
+        </ol>
+
+      <ol reversed class="posts">
+        <!-- <ol reversed> -->
+          <li class="post" data-type="method robust">
             <a class="hidelink" href="http://www.optimization-online.org/DB_FILE/2022/01/8768.pdf"><b>Minkowski Centers via Robust Optimization: Computation and Applications</b></a> <a class="hidelink" href="http://www.optimization-online.org/DB_HTML/2022/01/8768.html">[Preprint]</a> <br>
             <i>Submitted</i>, 2021, with Dick den Hertog and Mohamed Yahya Soali
           </li>
-          <li data-type="application method healthcare ml robust">
+
+          <li class="post" data-type="application healthcare">
             <a class="hidelink" href="https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID4012658_code2314827.pdf?abstractid=4012658&mirid=1"><b>Robust Combination Testing: Methods and Application to COVID-19 Detection</b></a> <a class="hidelink" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4012658">[Preprint]</a> <br>
             <i>Submitted</i>, 2021, with Sanjay Jain, Jonas Jonasson, and Kamalini Ramdas
           </li>
-          <li data-type="application healthcare">
+
+          <li class="post" data-type="application healthcare">
             <b><a class="hidelink" href="https://www.medrxiv.org/content/10.1101/2021.06.15.21257351v1.full.pdf">A new combination testing methodology to identify accurate and economical point-of-care testing strategies</a></b> <a class="hidelink" href="https://www.medrxiv.org/content/10.1101/2021.06.15.21257351v1">[Preprint]</a><br>
             <i>Submitted</i>, 2021, with Sanjay Jain, Jonas Jonasson, Kamalini Ramdas et al.
           </li>
-          <li data-type="method ml">
+
+          <li class="post" data-type="method ml">
             <a class="hidelink" href="https://arxiv.org/pdf/2104.03158.pdf"><b>Prediction with Missing Data</b></a> <a class="hidelink" href="https://arxiv.org/abs/2104.03158">[Preprint]</a> <br>
             <i>Submitted</i>, 2021, with Dimitris Bertsimas and Arthur Delarue
             <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
                 <a class="hidelink" style="color:#0431B4"><b>Finalist for the 2021 INFORMS Data Mining Best Paper Competition</b></a>
             </ul>
           </li>
-          <li data-type="application healthcare">
+
+          <li class="post" data-type="application healthcare">
             <a class="hidelink" href="http://www.optimization-online.org/DB_FILE/2021/04/8325.pdf"><b>Hospital-wide Inpatient Flow Optimization</b></a> <a class="hidelink" href="http://www.optimization-online.org/DB_HTML/2021/04/8325.html">[Preprint]</a><br>
-            <i>Management Science</i>, 2022 (accepted), with Dimitris Bertsimas
+            <i>Submitted</i>, 2022, with Dimitris Bertsimas
             <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;">
               <b><a class="hidelink" style="color:#0431B4" href="https://www.poms.org/colleges/chom/">Winner of the 2022 POMS College of Healthcare Operations Management Best Paper Competition</a></b><br>
               <b><a class="hidelink" style="color:#0431B4" href="https://uwaterloo.ca/canadian-operational-research-society-conference/canadian-healthcare-optimization-workshop-2021">Winner of the 2021 Canadian Healthcare Optimization Workshop Best Paper Competition</a></b><br>
               <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Honorable Mention at the 2020 INFORMS Doing Good with Good OR Student Paper Competition</a></b>
             </ul>
           </li>
-          <li class="post" data-type="method mio mpo">
+
+          <li class="post" class="post" data-type="method mio mpo">
             <a class="hidelink" href="http://www.optimization-online.org/DB_FILE/2021/05/8387.pdf"><b>A New Perspective on Low-Rank Optimization</b></a> <a class="hidelink" href="http://www.optimization-online.org/DB_HTML/2021/05/8387.html">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/MatrixPerspectiveSoftware">[Code]</a><br>
-            <i>Mathematical Programming</i>, 2022 (accepted), with Dimitris Bertsimas and Ryan Cory-Wright
+            <i>Submitted</i>, 2022, with Dimitris Bertsimas and Ryan Cory-Wright
           </li>
-          <li data-type="method robust">
+
+          <li class="post" data-type="method robust">
             <a class="hidelink" href="http://www.optimization-online.org/DB_FILE/2020/08/7980.pdf"><b>Robust Convex Optimization: A New Perspective That Unifies And Extends</b></a> <a class="hidelink" href="http://www.optimization-online.org/DB_HTML/2020/08/7980.html">[Preprint]</a><br>
-            <i>Mathematical Programming</i>, 2022 (accepted), with Dimitris Bertsimas, Dick den Hertog, and Jianzhe Zhen
+            <i>Submitted</i>, 2022, with Dimitris Bertsimas, Dick den Hertog, and Jianzhe Zhen
           </li>
-          <li data-type="method ml">
+
+          <li class="post" data-type="method ml">
             <a class="hidelink" href="https://pubsonline.informs.org/doi/abs/10.1287/msom.2022.1118"><b>Robust and Heterogeneous Odds Ratio: Estimating Price Sensitivity for Unbought Items</b></a> <a class="hidelink" href="https://arxiv.org/abs/2106.11389">[Preprint]</a> <br>
             <i>Manufacturing & Service Operations Management</i>, 2022
             <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
                 <a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/msom/events/datadriven2020"><b>Winner of the 2020 M&SOM Data-Driven Challenge</b></a>
             </ul>
           </li>
-          <li data-type="method ml mio">
+
+          <li class="post" data-type="method ml">
             <a class="hidelink" href="https://jmlr.org/papers/v23/20-1188.html"><b>Solving Large-Scale Sparse PCA to Certifiable (Near) Optimality</b></a> <a class="hidelink" href="https://arxiv.org/abs/2005.05195">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/ScalableSPCA.jl">[Code]</a><br>
             <i>Journal of Machine Learning Research</i>, 2022, with Dimitris Bertsimas and Ryan Cory-Wright
           </li>
-          <li data-type="method mio">
+
+          <li class="post" data-type="method mio">
             <a class="hidelink" href="https://pubsonline.informs.org/doi/abs/10.1287/opre.2021.2182"><b>Mixed-Projection Conic Optimization: A New Paradigm for Modeling Rank Constraints</b></a> <a class="hidelink" href="http://www.optimization-online.org/DB_HTML/2020/09/8031.html">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/MixedProjectionSoftware">[Code]</a> <br>
             <i>Operations Research</i>, 2021, with Dimitris Bertsimas and Ryan Cory-Wright
             <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
                 <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/George-Nicholson-Student-Paper-Competition">Winner of the 2020 INFORMS George E. Nicholson Student Paper Competition</a></b>
             </ul>
           </li>
-          <li data-type="method robust">
+
+          <li class="post" data-type="method robust">
             <b><a class="hidelink" href="https://doi.org/10.1137/21M1390967">Probabilistic Guarantees in Robust Optimization</a></b> <a class="hidelink" href="http://www.optimization-online.org/DB_HTML/2019/09/7378.html">[Preprint]</a> <br>
             <i>SIAM Journal on Optimization</i>, 2021, with Dimitris Bertsimas and Dick den Hertog
           </li>
-          <li data-type="method mio ml">
+
+          <li class="post" data-type="method ml">
             <b><a class="hidelink" href="https://doi.org/10.1007/s10994-021-06085-5">Sparse Classification: A Scalable Discrete Optimization Perspective</a></b> <a class="hidelink" href="https://arxiv.org/abs/1710.01352">[Preprint]</a> <a class="hidelink" href="https://github.com/jeanpauphilet/SubsetSelectionCIO.jl">[Code]</a> <br>
             <i>Machine Learning</i>, 2021, with Dimitris Bertsimas and Bart Van Parys
           </li>
-          <li data-type="method mio">
+
+          <li class="post" data-type="method mio">
             <b><a class="hidelink" href="https://doi.org/10.1137/20M1346778">A Unified Approach to Mixed-Integer Optimization Problems with Logical Constraints</a></b> <a class="hidelink" href="https://arxiv.org/abs/1907.02109">[Preprint]</a> <a class="hidelink" href="https://higherlogicdownload.s3.amazonaws.com/INFORMS/a4f852dd-2bdc-46bc-98e7-47e7d7c12752/UploadedImages/ICS-newsletter-2020.pdf">[ICS Newsletter]</a><br>
             <i>SIAM Journal on Optimization</i>, 2021, with Dimitris Bertsimas and Ryan Cory-Wright <br>
             <ul style="margin-top: 0px; margin: 0px; padding:0px; list-style:none; color:#0431B4;">
@@ -118,11 +232,13 @@
               <b>Finalist for the 2020 Mixed Integer Programming Workshop Student Poster Competition</b>
             </ul>
           </li>
-          <li data-type="application healthcare ml">
+
+          <li class="post" data-type="application healthcare">
             <b><a class="hidelink" href="https://doi.org/10.1287/msom.2021.0971">Predicting Inpatient Flow at a Major Hospital Using Interpretable Analytics</a></b> <a class="hidelink" href="https://medrxiv.org/cgi/content/short/2020.05.12.20098848v2">[Preprint]</a> <br>
             <i>Manufacturing & Service Operations Management</i>, 2021, with Dimitris Bertsimas, Jennifer Stevens, and Manu Tandon
           </li>
-          <li data-type="application healthcare ml">
+
+          <li class="post" data-type="application healthcare">
             <b><a class="hidelink" href="https://link.springer.com/article/10.1007/s10729-020-09542-0">From Predictions to Prescriptions: A Data-Driven Response to COVID-19</a></b> <a class="hidelink" href="http://www.covidanalytics.io/">[Website]</a> <a class="hidelink" href="https://www.medrxiv.org/content/10.1101/2020.06.26.20141127v1">[Preprint]</a> <a class="hidelink" href="https://github.com/COVIDAnalytics">[Code]</a>
             <a class="hidelink" href="https://www.nytimes.com/interactive/2020/04/22/upshot/coronavirus-models.html">[NYT]</a> <br>
             <i>Health Care Management Science</i>, 2021, with Dimitris Bertsimas et al.
@@ -130,38 +246,45 @@
                 <a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/healthapplications/awards/pierskalla-award"><b>Winner of the 2020 INFORMS Pierskalla Award</b></a>
             </ul>
           </li>
-          <li data-type="application engineering">
+
+          <li class="post" data-type="application engineering">
             <b><a class="hidelink" href="https://pubs.acs.org/doi/10.1021/acs.jcim.0c01032">Direct Optimization across Computer Generated Reaction Networks Balances Materials Use and Feasibility of Synthesis Plans for Molecule Libraries</a></b> <br>
             <i>Journal of Chemical Information and Modeling</i>, 2021, with Hanyu Gao, Thomas Struble, <a class="hidelink" href="https://cheme.mit.edu/profile/connor-w-coley/">Connor Coley</a>, and <a class="hidelink" href="https://cheme.mit.edu/profile/klavs-f-jensen/">Klavs F. Jensen</a>
           </li>
-          <li data-type="method mio ml">
+
+          <li class="post" data-type="method ml">
             <b><a class="hidelink" href="https://projecteuclid.org/euclid.ss/1605603630">Sparse Regression: Scalable Algorithms and Empirical Performance</a></b> <a class="hidelink" href="https://arxiv.org/abs/1902.06547">[Preprint]</a> <a class="hidelink" href="https://github.com/jeanpauphilet/SubsetSelection.jl">[Code]</a><br>
             <i>Statistical Science</i>, 2020, with Dimitris Bertsimas and <a class="hidelink" href="http://web.mit.edu/vanparys/www/index.html">Bart Van Parys</a>
           </li>
-          <li data-type="method mio ml">
+
+          <li class="post" data-type="method ml">
             <b><a class="hidelink" href="https://link.springer.com/article/10.1007/s10107-019-01419-7">Certifiably Optimal Sparse Inverse Covariance Estimation</a></b> <a class="hidelink" href="https://arxiv.org/abs/1906.10283">[Preprint]</a> <br>
             <i>Mathematical Programming</i>, 2020, with <a class="hidelink" href="http://www.mit.edu/~dbertsim/">Dimitris Bertsimas</a> and Jourdain Lamperski
           </li>
-          <li data-type="application engineering robust">
+
+          <li class="post" data-type="application engineering">
             <b><a class="hidelink" href="https://ieeexplore.ieee.org/document/7798477">A Tractable Numerical Strategy for Robust MILP and Application to Energy Management </a> </b> <br>
             <i>IEEE 55th Conference on Decision and Control (CDC)</i>, 2016, with <a class="hidelink" href="https://people.eecs.berkeley.edu/~elghaoui/">Laurent El Ghaoui</a>, Damien Faille, and Diego Kiener
           </li>
-          <b>Algorithmic Advancements in Discrete Optimization: Applications to Machine Learning and Healthcare Operations</b> <a class="hidelink" href="./pdf/Pauphilet Thesis 30p.pdf">[30-page version]</a> <br>
+          <!-- <b>Algorithmic Advancements in Discrete Optimization: Applications to Machine Learning and Healthcare Operations</b> <a class="hidelink" href="./pdf/Pauphilet Thesis 30p.pdf">[30-page version]</a> <br>
           <i> Ph.D. Thesis, Massachusetts Institute of Technology, </i> May 2020
           <ul style="margin-top: 0px; margin: 0px; padding:0px; list-style:none; color:#0431B4;">
             <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/George-B.-Dantzig-Dissertation-Award">Honorable Mention at the 2020 INFORMS George B. Dantzig Dissertation Award</a></b>
-          </ul>
-        </ol>
-        <br>
-      </div>
+          </ul> -->
+        <!-- </ol> -->
+      </ol> 
+      <ul class="posts" style="list-style-type:none;">
+        <li class="post" data-type="method application healthcare mio ml">
+        <b>Algorithmic advancements in discrete optimization: Applications to machine learning and healthcare operations</b> <a class="hidelink" href="./pdf/Pauphilet Thesis 30p.pdf">[30-page version]</a> <br>
+        <i> Ph.D. Thesis, Massachusetts Institute of Technology, </i> May 2020
+        <ul style="margin-top: 0px; margin: 0px; padding:0px; list-style:none; color:#0431B4;">
+          <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/George-B.-Dantzig-Dissertation-Award">Honorable Mention at the 2020 INFORMS George B. Dantzig Dissertation Award</a></b>
+        </ul>
+        </li>
     </div>
-    <p> <a class="hidelink" href="index.html"> ⟵ Back </a> </p>
   </div>
-  <!-- <div class="twelve columns" style="margin-top: 0%">
-  <br>
-  <div id="wcb" class="carbonbadge"></div>
-  <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-  </div> -->
+</div>
+
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
