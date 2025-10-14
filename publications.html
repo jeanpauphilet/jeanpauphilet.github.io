@@ -34,74 +34,6 @@
 
     gtag('config', 'UA-145332417-1');
   </script> -->
-
-  <style>
-  input[type="radio"] {
-      position: absolute;
-      left: -9999px;
-    }
-    :root {
-      --black: #1a1a1a;
-      --white: #fff;
-      --green: #0431B4;
-    }
-
-    .filters {
-      text-align: left;
-      /* margin-bottom: 2rem; */
-    }
-    .filters * {
-      display: inline-block;
-    }
-    .filters label {
-      /* text-align: center; */
-      /* padding: 0.5rem 1rem; */
-      /* margin-bottom: 0.1rem; */
-      /* border-radius: 2rem; */
-      /* min-width: 50px; */
-      /* line-height: normal; */
-      cursor: pointer;
-      transition: all 0.1s;
-      /* border-style: solid; */
-      /* border-width: 1px; */
-      /* border-color: var(--white); */
-    }
-    .filters label:hover {
-      background: var(--white);
-      color: var(--green);
-      border-color: var(--green);
-    }
-
-    .posts {
-      display: list
-    }
-    .posts .post {
-      display: inline-list
-    }
-
-    [value="all"]:checked ~ .posts [data-type]
-    {
-      display: list;
-    }
-
-    [value="mio"]:checked ~ .posts .post:not([data-type~="mio"]),
-    [value="ml"]:checked ~ .posts .post:not([data-type~="ml"]),
-    [value="health"]:checked ~ .posts .post:not([data-type~="health"]),
-    [value="sustainable"]:checked ~ .posts .post:not([data-type~="sustainable"])
-    {
-      display: none;
-    }
-
-    [value="mio"]:checked ~ .filters [for="mio"],
-    [value="ml"]:checked ~ .filters [for="ml"],
-    [value="health"]:checked ~ .filters [for="health"],
-    [value="sustainable"]:checked ~ .filters [for="sustainable"]
-    {
-      background: var(--white);
-      color: var(--green);
-      border-color: var(--green);
-    }
-    </style>
 </head>
 <body>
   <div class="container">
@@ -119,201 +51,192 @@
       </div>
 
       <div class="twelve columns" style="margin-top: 1%">
-        My research is organized into four broad research directions (click to filter): 
-        <input type="radio" id="all" name="category" value="all" checked>
-        <input type="radio" id="mio" name="category" value="mio">
-        <input type="radio" id="ml" name="category" value="ml">
-        <input type="radio" id="health" name="category" value="health">
-        <input type="radio" id="sustainable" name="category" value="sustainable">
-        
-        <ul class="filters", style="margin-top: 1%">
-          <li><label for="mio">- Algorithms for discrete and robust optimization; </label></li><br>
-          <li><label for="ml">- Optimization for machine learning and statistics; </label></li><br>
-          <li><label for="health">- Analytics for healthcare operations; </label></li><br>
-          <li><label for="sustainable">- Analytics for sustainable operations. </label></li><br>
-          <label for="all" style="font-weight:normal">[Reset filters]</label>
-        </ul>
+        My research is organized into four broad streams:
+        <div style="margin-top: 1%; display: flex; gap: 10px; flex-wrap: wrap;"></div>
+          <button onclick="document.getElementById('algorithms').scrollIntoView({behavior: 'smooth'});">Algorithms for discrete and robust optimization</button>
+          <button onclick="document.getElementById('ml').scrollIntoView({behavior: 'smooth'});">Optimization for machine learning and statistics</button>
+          <button onclick="document.getElementById('healthcare').scrollIntoView({behavior: 'smooth'});">Analytics for healthcare operations</button>
+          <button onclick="document.getElementById('sustainable').scrollIntoView({behavior: 'smooth'});">Analytics for sustainable operations</button>
+        </div>
         <hr>
-
-        <ol reversed class="posts">
-          <li class="post" data-type="mio" value="29">
+        
+        <br>
+        <h5 id="algorithms">Algorithms for discrete and robust optimization</h5>
+        <ol reversed start="30" class="posts">
+          <li class="post">
+            <a class="hidelink" href="https://optimization-online.org/?p=32181"><b>The Surprising Performance of Random Partial Benders Decomposition</b></a> <a class="hidelink" href="https://optimization-online.org/?p=32181">[Preprint]</a> <br>
+            <i>Submitted</i>, 2025, with Yupeng Wu
+            <ul style="margin-top: 5px; margin: 0px; padding:0px; list-style:none; color:#0431B4;">
+              <b><a class="hidelink" style="color:#0431B4" href="">Honorable Mention for the 2025 INFORMS Computing Society Student Prize (Yupeng Wu)</a></b>
+            </ul>
+          </li>
+          <li class="post">
             <a class="hidelink" href="https://optimization-online.org/2025/01/improved-approximation-algorithms-for-low-rank-problems-using-semidefinite-optimization/"><b>Improved Approximation Algorithms for Low-Rank Problems Using Semidefinite Optimization</b></a> <a class="hidelink" href="https://optimization-online.org/2025/01/improved-approximation-algorithms-for-low-rank-problems-using-semidefinite-optimization/">[Preprint]</a> <br>
             <i>Submitted</i>, 2025, with Ryan Cory-Wright
           </li>
-
-            <li class="post" data-type="ml" value="28">
-              <a class="hidelink" href="https://optimization-online.org/2025/03/optimal-experimental-design-with-routing-constraints/"><b>Optimal Experimental Design with Routing Constraints</b></a> <a class="hidelink" href="https://optimization-online.org/2025/03/optimal-experimental-design-with-routing-constraints/">[Preprint]</a> <br>
-              <i>Submitted</i>, 2024, with Baizhi Song
-            </li>
-
-            <li class="post" data-type="health" value="27">
-              <a class="hidelink" href="https://ssrn.com/abstract=4523116"><b>Occupancy Prediction with Patient Data: Evaluating Time-Series, Patient-Level Aggregation, and Deep Set Models</b></a> <a class="hidelink" href="https://ssrn.com/abstract=4523116">[Preprint]</a><br>
-              <i>Submitted</i>, 2023, with Song-Hee Kim and William Overman 
-            </li>
-          
-            <li class="post" data-type="health" value="26">
-              <a class="hidelink" href="https://arxiv.org/pdf/2305.15629"><b>Patient Outcome Predictions Improve Operations at a Large Hospital Network</b></a> <a class="hidelink" href="https://arxiv.org/abs/2305.15629">[Preprint]</a><br>
-              <i>Submitted</i>, 2023, with Dimitris Bertsimas, Irra Na, Kimberley Villalobos Carballo, and Hartford HealthCare
-                <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;">
-                  <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Finalist for the 2023 INFORMS Doing Good with Good OR Student Paper Competition (Irra Na and Kimberley Villalobos Carballo)</a></b>
-                </ul>
-            </li>
-            
-            <li class="post" data-type="mio" value="25">
-              <a class="hidelink" href="https://optimization-online.org/2023/05/optimal-low-rank-matrix-completion-semidefinite-relaxations-and-eigenvector-disjunctions/"><b>Optimal Low-Rank Matrix Completion: Semidefinite Relaxations and Eigenvector Disjunctions</b></a> <a class="hidelink" href="https://optimization-online.org/2023/05/optimal-low-rank-matrix-completion-semidefinite-relaxations-and-eigenvector-disjunctions/">[Preprint]</a> <br>
-              <i>Submitted</i>, 2023, with Dimitris Bertsimas, Ryan Cory-Wright, and Sean Lo
-            </li>
-
-            <li class="post" data-type="ml" value="24">
-              <a class="hidelink" href="https://optimization-online.org/2022/09/sparse-pca-with-multiple-components/"><b>Sparse PCA with Multiple Components</b></a> <a class="hidelink" href="https://optimization-online.org/2022/09/sparse-pca-with-multiple-components/">[Preprint]</a><a class="hidelink" href="https://github.com/ryancorywright/MultipleComponentsSoftware">[Code]</a> <br>
-              <i>Submitted</i>, 2022, with Ryan Cory-Wright
-              <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;">
-                <b><a class="hidelink" style="color:#0431B4" href="https://sites.google.com/view/dmdaworkshop2024/home">Winner of the 2024 INFORMS Data Mining and Decision Analytics Workshop Best Theoretical Paper</a></b><br>
-              </ul>
-            </li>
-
-            <li class="post" data-type="ml" value="23">
-              <a class="hidelink" href="https://arxiv.org/pdf/2402.01543.pdf"><b>Adaptive Optimization for Prediction with Missing Data</b></a> <a class="hidelink" href="https://arxiv.org/abs/2402.01543">[Preprint]</a> <br>
-              <i>Machine Learning</i>, 2025 (accepted), with Dimitris Bertsimas and Arthur Delarue
-            </li>
-
-            <li class="post" data-type="sustainable" value="22">
-              <a class="hidelink" href="https://doi.org/10.1287/opre.2023.0515"><b>Optimizing the Path Towards Plastic-Free Oceans</b></a> <a class="hidelink" href="https://optimization-online.org/2023/10/optimizing-the-path-towards-plastic-free-oceans/">[Preprint]</a> <a class="hidelink" href="https://www.london.edu/think/winning-the-race-for-cleaner-oceans-with-analytics">[Media]</a></a><br>
-              <i>Operations Research</i>, 2024, with Dick den Hertog, Baizhi Song, and Bruno Sainte-Rose and Yannick Pham <a class="hidelink" href="https://theoceancleanup.com">(The Ocean Cleanup)</a>
-              <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;">
-                <b><a class="hidelink" style="color:#0431B4" href="">Finalist for the 2025 INFORMS Innovative Applications in Analytics Award</a></b><br>
-                <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Honorable Mention for the 2024 INFORMS Doing Good with Good OR Student Paper Competition (Baizhi Song)</a></b><br>
-                <b><a class="hidelink" style="color:#0431B4" href="https://www.poms.org/colleges/suo/announcements/1713809798">Winner of the 2024 POMS College of Sustainable Operations Student Paper Competition (Baizhi Song)</a></b><br>
-                <b><a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/tsl/awards/student-paper">Honorable Mention for the 2023 INFORMS Transportation Science and Logistics Best Student Paper Award (Baizhi Song)</a></b>
-              </ul>
-            </li>
-
-            <li class="post" data-type="mio" value="21">
+          <li class="post">
+            <a class="hidelink" href="https://optimization-online.org/2023/05/optimal-low-rank-matrix-completion-semidefinite-relaxations-and-eigenvector-disjunctions/"><b>Disjunctive Branch-And-Bound for Certifiably Optimal Low-Rank Matrix Completion</b></a> <a class="hidelink" href="https://optimization-online.org/2023/05/optimal-low-rank-matrix-completion-semidefinite-relaxations-and-eigenvector-disjunctions/">[Preprint]</a> <br>
+            <i>Submitted</i>, 2023, with Dimitris Bertsimas, Ryan Cory-Wright, and Sean Lo
+          </li>
+          <li class="post">
               <a class="hidelink" href="https://doi.org/10.1287/ijoc.2023.0074"><b>A Stochastic Benders Decomposition Scheme for Large-Scale Stochastic Network Design</b></a> <a class="hidelink" href="https://optimization-online.org/?p=22386">[Preprint]</a> <br>
               <i>INFORMS Journal on Computing</i>, 2024, with Dimitris Bertsimas, Ryan Cory-Wright, and Periklis Petridis
             </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/opre.2023.2448"><b>Minkowski Centers via Robust Optimization: Computation and Applications</b></a> <a class="hidelink" href="https://optimization-online.org/2022/01/8768/">[Preprint]</a> <br>
+            <i>Operations Research</i>, 2023, with Dick den Hertog and Mohamed Yahya Soali
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1007/s10107-023-01933-9"><b>A New Perspective on Low-Rank Optimization</b></a> <a class="hidelink" href="https://optimization-online.org/2021/05/8387/">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/MatrixPerspectiveSoftware">[Code]</a><br>
+            <i>Mathematical Programming</i>, 2023, with Dimitris Bertsimas and Ryan Cory-Wright
+          </li>
+          <li class="post">
+            <a class="hidelink" href="http://doi.org/10.1007/s10107-022-01881-w"><b>Robust Convex Optimization: A New Perspective That Unifies And Extends</b></a> <a class="hidelink" href="https://optimization-online.org/2020/08/7980/">[Preprint]</a><br>
+            <i>Mathematical Programming</i>, 2022, with Dimitris Bertsimas, Dick den Hertog, and Jianzhe Zhen
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/opre.2021.2182"><b>Mixed-Projection Conic Optimization: A New Paradigm for Modeling Rank Constraints</b></a> <a class="hidelink" href="https://optimization-online.org/2020/09/8031/">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/MixedProjectionSoftware">[Code]</a> <br>
+            <i>Operations Research</i>, 2021, with Dimitris Bertsimas and Ryan Cory-Wright
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/George-Nicholson-Student-Paper-Competition">Winner of the 2020 INFORMS George E. Nicholson Student Paper Competition</a></b>
+            </ul>
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1137/21M1390967">Probabilistic Guarantees in Robust Optimization</a></b> <a class="hidelink" href="https://optimization-online.org/2019/09/7378/">[Preprint]</a> <br>
+            <i>SIAM Journal on Optimization</i>, 2021, with Dimitris Bertsimas and Dick den Hertog
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1137/20M1346778">A Unified Approach to Mixed-Integer Optimization Problems with Logical Constraints</a></b> <a class="hidelink" href="https://arxiv.org/abs/1907.02109">[Preprint]</a> <a class="hidelink" href="https://higherlogicdownload.s3.amazonaws.com/INFORMS/a4f852dd-2bdc-46bc-98e7-47e7d7c12752/UploadedImages/ICS-newsletter-2020.pdf">[ICS Newsletter]</a><br>
+            <i>SIAM Journal on Optimization</i>, 2021, with Dimitris Bertsimas and Ryan Cory-Wright <br>
+            <ul style="margin-top: 0px; margin: 0px; padding:0px; list-style:none; color:#0431B4;">
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/Community-Prizes/INFORMS-Computing-Society/ICS-Student-Paper-Award">Winner of the 2019 INFORMS Computing Society Student Paper Award</a> </b><br>
+            </ul>
+          </li>
+        </ol>
+        
+        <br>
+        <h5 id="ml">Optimization for machine learning and statistics</h5>
+        <ol reversed start="20" class="posts">
+          <li class="post">
+            <a class="hidelink" href="https://optimization-online.org/2025/03/optimal-experimental-design-with-routing-constraints/"><b>Operationalizing Experimental Design: Data Collection for Remote Ocean Monitoring</b></a> <a class="hidelink" href="https://optimization-online.org/2025/03/optimal-experimental-design-with-routing-constraints/">[Preprint]</a> <br>
+            <i>Submitted</i>, 2025, with Baizhi Song
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://optimization-online.org/2022/09/sparse-pca-with-multiple-components/"><b>Sparse PCA with Multiple Components</b></a> <a class="hidelink" href="https://optimization-online.org/2022/09/sparse-pca-with-multiple-components/">[Preprint]</a><a class="hidelink" href="https://github.com/ryancorywright/MultipleComponentsSoftware">[Code]</a> <br>
+            <i>Submitted</i>, 2022, with Ryan Cory-Wright
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;"></ul>
+              <b><a class="hidelink" style="color:#0431B4" href="https://sites.google.com/view/dmdaworkshop2024/home">Winner of the 2024 INFORMS Data Mining and Decision Analytics Workshop Best Theoretical Paper</a></b><br>
+            </ul>
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1007/s10994-025-06757-6"><b>Adaptive Optimization for Prediction with Missing Data</b></a> <a class="hidelink" href="https://arxiv.org/abs/2402.01543">[Preprint]</a> <br>
+            <i>Machine Learning</i>, 2025, with Dimitris Bertsimas and Arthur Delarue
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://openreview.net/pdf?id=IKH5ziX9dk"><b>Simple Imputation Rules for Prediction with Missing Data: Theoretical Guarantees vs. Empirical Performance</b></a> <a class="hidelink" href="https://arxiv.org/abs/2104.03158">[Preprint]</a> <br>
+            <i>Transactions on Machine Learning Research</i>, 2024, with Dimitris Bertsimas and Arthur Delarue
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/msom.2022.1118"><b>Robust and Heterogeneous Odds Ratio: Estimating Price Sensitivity for Unbought Items</b></a> <a class="hidelink" href="https://arxiv.org/abs/2106.11389">[Preprint]</a> <br>
+            <i>Manufacturing & Service Operations Management</i>, 2022
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
+              <a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/msom/events/datadriven2020"><b>Winner of the 2020 M&SOM Data-Driven Challenge</b></a>
+            </ul>
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://jmlr.org/papers/v23/20-1188.html"><b>Solving Large-Scale Sparse PCA to Certifiable (Near) Optimality</b></a> <a class="hidelink" href="https://arxiv.org/abs/2005.05195">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/ScalableSPCA.jl">[Code]</a><br>
+            <i>Journal of Machine Learning Research</i>, 2022, with Dimitris Bertsimas and Ryan Cory-Wright
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1007/s10994-021-06085-5">Sparse Classification: A Scalable Discrete Optimization Perspective</a></b> <a class="hidelink" href="https://arxiv.org/abs/1710.01352">[Preprint]</a> <a class="hidelink" href="https://github.com/jeanpauphilet/SubsetSelectionCIO.jl">[Code]</a> <br>
+            <i>Machine Learning</i>, 2021, with Dimitris Bertsimas and Bart Van Parys
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://projecteuclid.org/euclid.ss/1605603630">Sparse Regression: Scalable Algorithms and Empirical Performance</a></b> <a class="hidelink" href="https://arxiv.org/abs/1902.06547">[Preprint]</a> <a class="hidelink" href="https://github.com/jeanpauphilet/SubsetSelection.jl">[Code]</a><br>
+            <i>Statistical Science</i>, 2020, with Dimitris Bertsimas and <a class="hidelink" href="http://web.mit.edu/vanparys/www/index.html">Bart Van Parys</a>
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1007/s10107-019-01419-7">Certifiably Optimal Sparse Inverse Covariance Estimation</a></b> <a class="hidelink" href="https://arxiv.org/abs/1906.10283">[Preprint]</a> <br>
+            <i>Mathematical Programming</i>, 2020, with <a class="hidelink" href="http://www.mit.edu/~dbertsim/">Dimitris Bertsimas</a> and Jourdain Lamperski
+          </li>
+        </ol>
 
-            <li class="post" data-type="health" value="20">
-              <a class="hidelink" href="https://doi.org/10.1287/inte.2023.0071"><b>Optimization Automates Nurse Scheduling at Hartford Hospital Emergency Department</b></a><br>
-              <i>INFORMS Journal on Applied Analytics</i>, 2024, with Dimitris Bertsimas, Irra Na, and Hartford HealthCare
-            </li>
+        <br>
+        <h5 id="healthcare">Analytics for healthcare operations</h5>
+        <ol reversed start="11" class="posts">
+          <li class="post">
+            <a class="hidelink" href="https://ssrn.com/abstract=4523116"><b>Occupancy Prediction with Patient Data: Evaluating Time-Series, Patient-Level Aggregation, and Deep Set Models</b></a> <a class="hidelink" href="https://ssrn.com/abstract=4523116">[Preprint]</a><br>
+            <i>Submitted</i>, 2023, with Song-Hee Kim and William Overman 
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://arxiv.org/pdf/2305.15629"><b>Patient Outcome Predictions Improve Operations at Hartford HealthCare</b></a> <a class="hidelink" href="https://arxiv.org/abs/2305.15629">[Preprint]</a><br>
+            <i>INFORMS Journal on Applied Analytics</i>, 2025 (accepted), with Dimitris Bertsimas, Irra Na, Kimberley Villalobos Carballo, and Hartford HealthCare
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;"></ul>
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Finalist for the 2023 INFORMS Doing Good with Good OR Student Paper Competition (Irra Na and Kimberley Villalobos Carballo)</a></b>
+            </ul>
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/inte.2023.0071"><b>Optimization Automates Nurse Scheduling at Hartford Hospital Emergency Department</b></a><br>
+            <i>INFORMS Journal on Applied Analytics</i>, 2024, with Dimitris Bertsimas, Irra Na, and Hartford HealthCare
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/mnsc.2023.01851"><b>The Best Decisions Are Not the Best Advice: Making Adherence-Aware Recommendations</b></a> <a class="hidelink" href="http://arxiv.org/abs/2209.01874">[Preprint]</a> <br>
+            <i>Management Science</i>, 2024, with Julien Grand-Clément
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/mnsc.2023.4933"><b>Hospital-wide Inpatient Flow Optimization</b></a> <a class="hidelink" href="https://optimization-online.org/2021/04/8325/">[Preprint]</a><br>
+            <i>Management Science</i>, 2023, with Dimitris Bertsimas
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;"></ul>
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.poms.org/colleges/chom/">Winner of the 2022 POMS College of Healthcare Operations Management Best Paper Competition</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="https://uwaterloo.ca/canadian-operational-research-society-conference/canadian-healthcare-optimization-workshop-2021">Winner of the 2021 Canadian Healthcare Optimization Workshop Best Paper Competition</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Honorable Mention at the 2020 INFORMS Doing Good with Good OR Student Paper Competition</a></b>
+            </ul>
+          </li>
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/mnsc.2023.4826"><b>Robust Combination Testing: Methods and Application to COVID-19 Detection</b></a> <a class="hidelink" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4012658">[Preprint]</a> <a class="hidelink" href="https://www.london.edu/think/using-maths-to-resolve-a-trade-off-in-disease-testing">[Media]</a> <br>
+            <i>Management Science</i>, 2023, with Sanjay Jain, Jonas Jonasson, and Kamalini Ramdas
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1287/msom.2021.0971">Predicting Inpatient Flow at a Major Hospital Using Interpretable Analytics</a></b> <a class="hidelink" href="https://medrxiv.org/cgi/content/short/2020.05.12.20098848v2">[Preprint]</a> <br>
+            <i>Manufacturing & Service Operations Management</i>, 2021, with Dimitris Bertsimas, Jennifer Stevens, and Manu Tandon
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1007/s10729-020-09542-0">From Predictions to Prescriptions: A Data-Driven Response to COVID-19</a></b> <a class="hidelink" href="https://www.medrxiv.org/content/10.1101/2020.06.26.20141127v1">[Preprint]</a> <a class="hidelink" href="https://github.com/COVIDAnalytics">[Code]</a>
+            <a class="hidelink" href="https://www.nytimes.com/interactive/2020/04/22/upshot/coronavirus-models.html">[NYT]</a> <br>
+            <i>Health Care Management Science</i>, 2021, with Dimitris Bertsimas et al.
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;"></ul>
+              <a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/healthapplications/awards/pierskalla-award"><b>Winner of the 2020 INFORMS Pierskalla Award</b></a>
+            </ul>
+          </li>
+        </ol>
 
-            <li class="post" data-type="health" value="19">
-              <a class="hidelink" href="https://doi.org/10.1287/mnsc.2023.01851"><b>The Best Decisions Are Not the Best Advice: Making Adherence-Aware Recommendations</b></a> <a class="hidelink" href="http://arxiv.org/abs/2209.01874">[Preprint]</a> <br>
-              <i>Management Science</i>, 2024, with Julien Grand-Clément
-            </li>
+        <br>
+        <h5 id="sustainable">Analytics for sustainable operations</h5>
+        <ol reversed start="3" class="posts">
+          <li class="post">
+            <a class="hidelink" href="https://doi.org/10.1287/opre.2023.0515"><b>Optimizing the Path Towards Plastic-Free Oceans</b></a> <a class="hidelink" href="https://optimization-online.org/2023/10/optimizing-the-path-towards-plastic-free-oceans/">[Preprint]</a> <a class="hidelink" href="https://www.london.edu/think/winning-the-race-for-cleaner-oceans-with-analytics">[Media]</a></a><br>
+            <i>Operations Research</i>, 2024, with Dick den Hertog, Baizhi Song, and Bruno Sainte-Rose and Yannick Pham <a class="hidelink" href="https://theoceancleanup.com">(The Ocean Cleanup)</a>
+            <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;"></ul>
+              <b><a class="hidelink" style="color:#0431B4" href="">Runner-up the 2025 MSOM Responsible Research Award</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="">Finalist for the 2025 Best OM Paper in <i>Operations Research</i> Award</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/Community-Prizes/Analytics-Society/Innovative-Applications-in-Analytics-Award">Third Place at the 2025 INFORMS Innovative Applications in Analytics Award</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Honorable Mention for the 2024 INFORMS Doing Good with Good OR Student Paper Competition (Baizhi Song)</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="https://www.poms.org/colleges/suo/announcements/1713809798">Winner of the 2024 POMS College of Sustainable Operations Student Paper Competition (Baizhi Song)</a></b><br>
+              <b><a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/tsl/awards/student-paper">Honorable Mention for the 2023 INFORMS Transportation Science and Logistics Best Student Paper Award (Baizhi Song)</a></b>
+            </ul>
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://doi.org/10.1021/acs.jcim.0c01032">Direct Optimization across Computer Generated Reaction Networks Balances Materials Use and Feasibility of Synthesis Plans for Molecule Libraries</a></b> <br>
+            <i>Journal of Chemical Information and Modeling</i>, 2021, with Hanyu Gao, Thomas Struble, <a class="hidelink" href="https://cheme.mit.edu/profile/connor-w-coley/">Connor Coley</a>, and <a class="hidelink" href="https://cheme.mit.edu/profile/klavs-f-jensen/">Klavs F. Jensen</a>
+          </li>
+          <li class="post">
+            <b><a class="hidelink" href="https://ieeexplore.ieee.org/document/7798477">A Tractable Numerical Strategy for Robust MILP and Application to Energy Management </a> </b> <br>
+            <i>IEEE 55th Conference on Decision and Control (CDC)</i>, 2016, with <a class="hidelink" href="https://people.eecs.berkeley.edu/~elghaoui/">Laurent El Ghaoui</a>, Damien Faille, and Diego Kiener
+          </li>
+        </ol>
 
-            <li class="post" data-type="ml" value="18">
-              <a class="hidelink" href="https://openreview.net/pdf?id=IKH5ziX9dk"><b>Simple Imputation Rules for Prediction with Missing Data: Theoretical Guarantees vs. Empirical Performance</b></a> <a class="hidelink" href="https://arxiv.org/abs/2104.03158">[Preprint]</a> <br>
-              <i>Transactions on Machine Learning Research</i>, 2024, with Dimitris Bertsimas and Arthur Delarue
-            </li>
-
-            <li class="post" data-type="health" value="17">
-              <a class="hidelink" href="https://doi.org/10.1287/mnsc.2023.4933"><b>Hospital-wide Inpatient Flow Optimization</b></a> <a class="hidelink" href="https://optimization-online.org/2021/04/8325/">[Preprint]</a><br>
-              <i>Management Science</i>, 2023, with Dimitris Bertsimas
-              <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;">
-                <b><a class="hidelink" style="color:#0431B4" href="https://www.poms.org/colleges/chom/">Winner of the 2022 POMS College of Healthcare Operations Management Best Paper Competition</a></b><br>
-                <b><a class="hidelink" style="color:#0431B4" href="https://uwaterloo.ca/canadian-operational-research-society-conference/canadian-healthcare-optimization-workshop-2021">Winner of the 2021 Canadian Healthcare Optimization Workshop Best Paper Competition</a></b><br>
-                <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/Doing-Good-with-Good-OR-Student-Paper-Competition">Honorable Mention at the 2020 INFORMS Doing Good with Good OR Student Paper Competition</a></b>
-              </ul>
-            </li>
-
-            <li class="post" data-type="health" value="16">
-              <a class="hidelink" href="https://doi.org/10.1287/mnsc.2023.4826"><b>Robust Combination Testing: Methods and Application to COVID-19 Detection</b></a> <a class="hidelink" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4012658">[Preprint]</a> <a class="hidelink" href="https://www.london.edu/think/using-maths-to-resolve-a-trade-off-in-disease-testing">[Media]</a> <br>
-              <i>Management Science</i>, 2023, with Sanjay Jain, Jonas Jonasson, and Kamalini Ramdas
-              <!-- <ul style="margin-top: 5px; margin: 0px; list-style:none;;">
-                <b>News article: <a class="hidelink" style="" href="https://www.london.edu/think/using-maths-to-resolve-a-trade-off-in-disease-testing">'Using maths to resolve a trade-off in disease testing'</a>- Think at LBS</b>
-              </ul> -->
-            </li>
-
-            <li class="post" data-type="mio" value="15">
-              <a class="hidelink" href="https://doi.org/10.1287/opre.2023.2448"><b>Minkowski Centers via Robust Optimization: Computation and Applications</b></a> <a class="hidelink" href="https://optimization-online.org/2022/01/8768/">[Preprint]</a> <br>
-              <i>Operations Research</i>, 2023, with Dick den Hertog and Mohamed Yahya Soali
-            </li>
-
-            <li class="post" data-type="mio" value="14">
-              <a class="hidelink" href="https://doi.org/10.1007/s10107-023-01933-9"><b>A New Perspective on Low-Rank Optimization</b></a> <a class="hidelink" href="https://optimization-online.org/2021/05/8387/">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/MatrixPerspectiveSoftware">[Code]</a><br>
-              <i>Mathematical Programming</i>, 2023, with Dimitris Bertsimas and Ryan Cory-Wright
-            </li>
-
-            <li class="post" data-type="mio" value="13">
-              <a class="hidelink" href="http://doi.org/10.1007/s10107-022-01881-w"><b>Robust Convex Optimization: A New Perspective That Unifies And Extends</b></a> <a class="hidelink" href="https://optimization-online.org/2020/08/7980/">[Preprint]</a><br>
-              <i>Mathematical Programming</i>, 2022, with Dimitris Bertsimas, Dick den Hertog, and Jianzhe Zhen
-            </li>
-
-            <li class="post" data-type="ml" value="12">
-              <a class="hidelink" href="https://doi.org/10.1287/msom.2022.1118"><b>Robust and Heterogeneous Odds Ratio: Estimating Price Sensitivity for Unbought Items</b></a> <a class="hidelink" href="https://arxiv.org/abs/2106.11389">[Preprint]</a> <br>
-              <i>Manufacturing & Service Operations Management</i>, 2022
-              <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
-                  <a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/msom/events/datadriven2020"><b>Winner of the 2020 M&SOM Data-Driven Challenge</b></a>
-              </ul>
-            </li>
-
-            <li class="post" data-type="ml" value="11">
-              <a class="hidelink" href="https://jmlr.org/papers/v23/20-1188.html"><b>Solving Large-Scale Sparse PCA to Certifiable (Near) Optimality</b></a> <a class="hidelink" href="https://arxiv.org/abs/2005.05195">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/ScalableSPCA.jl">[Code]</a><br>
-              <i>Journal of Machine Learning Research</i>, 2022, with Dimitris Bertsimas and Ryan Cory-Wright
-            </li>
-
-            <li class="post" data-type="mio" value="10">
-              <a class="hidelink" href="https://doi.org/10.1287/opre.2021.2182"><b>Mixed-Projection Conic Optimization: A New Paradigm for Modeling Rank Constraints</b></a> <a class="hidelink" href="https://optimization-online.org/2020/09/8031/">[Preprint]</a> <a class="hidelink" href="https://github.com/ryancorywright/MixedProjectionSoftware">[Code]</a> <br>
-              <i>Operations Research</i>, 2021, with Dimitris Bertsimas and Ryan Cory-Wright
-              <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4 ;">
-                  <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/INFORMS-Prizes/George-Nicholson-Student-Paper-Competition">Winner of the 2020 INFORMS George E. Nicholson Student Paper Competition</a></b>
-              </ul>
-            </li>
-
-            <li class="post" data-type="mio" value="9">
-              <b><a class="hidelink" href="https://doi.org/10.1137/21M1390967">Probabilistic Guarantees in Robust Optimization</a></b> <a class="hidelink" href="https://optimization-online.org/2019/09/7378/">[Preprint]</a> <br>
-              <i>SIAM Journal on Optimization</i>, 2021, with Dimitris Bertsimas and Dick den Hertog
-            </li>
-
-            <li class="post" data-type="ml" value="8">
-              <b><a class="hidelink" href="https://doi.org/10.1007/s10994-021-06085-5">Sparse Classification: A Scalable Discrete Optimization Perspective</a></b> <a class="hidelink" href="https://arxiv.org/abs/1710.01352">[Preprint]</a> <a class="hidelink" href="https://github.com/jeanpauphilet/SubsetSelectionCIO.jl">[Code]</a> <br>
-              <i>Machine Learning</i>, 2021, with Dimitris Bertsimas and Bart Van Parys
-            </li>
-
-            <li class="post" data-type="mio" value="7">
-              <b><a class="hidelink" href="https://doi.org/10.1137/20M1346778">A Unified Approach to Mixed-Integer Optimization Problems with Logical Constraints</a></b> <a class="hidelink" href="https://arxiv.org/abs/1907.02109">[Preprint]</a> <a class="hidelink" href="https://higherlogicdownload.s3.amazonaws.com/INFORMS/a4f852dd-2bdc-46bc-98e7-47e7d7c12752/UploadedImages/ICS-newsletter-2020.pdf">[ICS Newsletter]</a><br>
-              <i>SIAM Journal on Optimization</i>, 2021, with Dimitris Bertsimas and Ryan Cory-Wright <br>
-              <ul style="margin-top: 0px; margin: 0px; padding:0px; list-style:none; color:#0431B4;">
-                <b><a class="hidelink" style="color:#0431B4" href="https://www.informs.org/Recognizing-Excellence/Community-Prizes/INFORMS-Computing-Society/ICS-Student-Paper-Award">Winner of the 2019 INFORMS Computing Society Student Paper Award</a> </b><br>
-              </ul>
-            </li>
-
-            <li class="post" data-type="health" value="6">
-              <b><a class="hidelink" href="https://doi.org/10.1287/msom.2021.0971">Predicting Inpatient Flow at a Major Hospital Using Interpretable Analytics</a></b> <a class="hidelink" href="https://medrxiv.org/cgi/content/short/2020.05.12.20098848v2">[Preprint]</a> <br>
-              <i>Manufacturing & Service Operations Management</i>, 2021, with Dimitris Bertsimas, Jennifer Stevens, and Manu Tandon
-            </li>
-
-            <li class="post" data-type="health" value="5">
-              <b><a class="hidelink" href="https://doi.org/10.1007/s10729-020-09542-0">From Predictions to Prescriptions: A Data-Driven Response to COVID-19</a></b> <a class="hidelink" href="http://www.covidanalytics.io/">[Website]</a> <a class="hidelink" href="https://www.medrxiv.org/content/10.1101/2020.06.26.20141127v1">[Preprint]</a> <a class="hidelink" href="https://github.com/COVIDAnalytics">[Code]</a>
-              <a class="hidelink" href="https://www.nytimes.com/interactive/2020/04/22/upshot/coronavirus-models.html">[NYT]</a> <br>
-              <i>Health Care Management Science</i>, 2021, with Dimitris Bertsimas et al.
-              <ul style="margin-top: 5px; margin: 0px; list-style:none; color:#0431B4;">
-                  <a class="hidelink" style="color:#0431B4" href="https://connect.informs.org/healthapplications/awards/pierskalla-award"><b>Winner of the 2020 INFORMS Pierskalla Award</b></a>
-              </ul>
-            </li>
-
-            <li class="post" data-type="sustainable" value="4">
-              <b><a class="hidelink" href="https://doi.org/10.1021/acs.jcim.0c01032">Direct Optimization across Computer Generated Reaction Networks Balances Materials Use and Feasibility of Synthesis Plans for Molecule Libraries</a></b> <br>
-              <i>Journal of Chemical Information and Modeling</i>, 2021, with Hanyu Gao, Thomas Struble, <a class="hidelink" href="https://cheme.mit.edu/profile/connor-w-coley/">Connor Coley</a>, and <a class="hidelink" href="https://cheme.mit.edu/profile/klavs-f-jensen/">Klavs F. Jensen</a>
-            </li>
-
-            <li class="post" data-type="ml" value="3">
-              <b><a class="hidelink" href="https://projecteuclid.org/euclid.ss/1605603630">Sparse Regression: Scalable Algorithms and Empirical Performance</a></b> <a class="hidelink" href="https://arxiv.org/abs/1902.06547">[Preprint]</a> <a class="hidelink" href="https://github.com/jeanpauphilet/SubsetSelection.jl">[Code]</a><br>
-              <i>Statistical Science</i>, 2020, with Dimitris Bertsimas and <a class="hidelink" href="http://web.mit.edu/vanparys/www/index.html">Bart Van Parys</a>
-            </li>
-
-            <li class="post" data-type="ml" value="2">
-              <b><a class="hidelink" href="https://doi.org/10.1007/s10107-019-01419-7">Certifiably Optimal Sparse Inverse Covariance Estimation</a></b> <a class="hidelink" href="https://arxiv.org/abs/1906.10283">[Preprint]</a> <br>
-              <i>Mathematical Programming</i>, 2020, with <a class="hidelink" href="http://www.mit.edu/~dbertsim/">Dimitris Bertsimas</a> and Jourdain Lamperski
-            </li>
-
-            <li class="post" data-type="sustainable" value="1">
-              <b><a class="hidelink" href="https://ieeexplore.ieee.org/document/7798477">A Tractable Numerical Strategy for Robust MILP and Application to Energy Management </a> </b> <br>
-              <i>IEEE 55th Conference on Decision and Control (CDC)</i>, 2016, with <a class="hidelink" href="https://people.eecs.berkeley.edu/~elghaoui/">Laurent El Ghaoui</a>, Damien Faille, and Diego Kiener
-            </li>
-        </ol> 
+        <br>
+        <h5>PhD dissertation</h5>
         <ul class="posts" style="list-style-type:none;">
           <li class="post" data-type="">
           <b>Algorithmic advancements in discrete optimization: Applications to machine learning and healthcare operations</b> <a class="hidelink" href="./pdf/Pauphilet Thesis 30p.pdf">[30-page version]</a> <br>
@@ -324,9 +247,11 @@
           </li>
         </ul>
     </div>
+    
+    <p> <a class="hidelink" href="index.html"> ⟵ Back </a> </p>
+
   </div>
 
-  <p> <a class="hidelink" href="index.html"> ⟵ Back </a> </p>
 </div>
 
 <!-- End Document
