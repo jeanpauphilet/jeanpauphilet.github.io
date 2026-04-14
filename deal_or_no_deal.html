@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal or No Deal</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#d4af37;--gold-light:#f5d060;--gold-dim:#8a7020;--screen-bg:#050818;
+}
+html,body{height:100%;background:var(--screen-bg)}
+body{font-family:'Roboto Condensed',sans-serif;color:#e8e8e8;overflow:hidden}
+#app{height:100vh;display:flex;flex-direction:column;background:linear-gradient(180deg,#0a0e2e 0%,#050818 60%)}
+
+#header{background:linear-gradient(90deg,#060a20,#0d1545,#060a20);border-bottom:2px solid var(--gold);padding:8px 24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#logo{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+#logo span{color:white}
+
+#main{display:flex;flex:1;gap:12px;padding:12px;overflow:hidden;min-height:0}
+
+/* Prize board */
+#prize-board{width:200px;flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(13,1fr);grid-auto-flow:column;gap:3px}
+.prize-item{display:flex;align-items:center;justify-content:flex-end;padding:3px 8px;border-radius:3px;border:1px solid;transition:all 0.3s}
+.prize-item.eliminated{opacity:0.15;text-decoration:line-through}
+.prize-amount{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.5px}
+.b-penny{border-color:rgba(170,170,170,0.3);background:rgba(150,150,150,0.12)}
+.b-penny .prize-amount{color:#bbbbbb}
+.b-blue{border-color:rgba(74,158,255,0.35);background:rgba(74,158,255,0.1)}
+.b-blue .prize-amount{color:#4a9eff}
+.b-red{border-color:rgba(255,68,68,0.35);background:rgba(255,68,68,0.1)}
+.b-red .prize-amount{color:#ff5555}
+.b-gold{border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.1)}
+.b-gold .prize-amount{color:#ffd700}
+
+#center{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+
+#briefcase-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;flex:1;min-height:0}
+.briefcase{
+  border-radius:8px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;
+  border:2px solid;transition:all 0.18s;user-select:none;min-height:0;
+}
+.briefcase.closed{background:linear-gradient(160deg,#1a3a8a,#0d2060);border-color:#4a7aff;color:#a0c0ff;box-shadow:0 3px 10px rgba(30,80,255,0.3),inset 0 1px 0 rgba(255,255,255,0.1)}
+.briefcase.closed:hover{background:linear-gradient(160deg,#2a50aa,#1a3080);transform:translateY(-2px);box-shadow:0 6px 18px rgba(30,80,255,0.5);border-color:#7aa0ff}
+.briefcase.selected{background:linear-gradient(160deg,#6a0a0a,#400505);border-color:#ff6060;color:#ffb0b0;cursor:default}
+.briefcase.opened{background:#0a0a18;border-color:#1a1a2a;color:#2a2a3a;cursor:default;opacity:0.45}
+.case-svg{width:36px;height:30px;margin-bottom:3px;flex-shrink:0}
+.case-num{font-size:15px;line-height:1}
+
+#reveal-flash{text-align:center;height:56px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#reveal-amount{font-family:'Oswald',sans-serif;font-size:52px;font-weight:700;letter-spacing:2px;opacity:0;transition:opacity 0.2s;line-height:1}
+#reveal-amount.show{opacity:1}
+#reveal-amount.fade{opacity:0;transition:opacity 0.6s}
+
+#status-msg{text-align:center;font-size:15px;color:#778;min-height:24px;letter-spacing:0.5px;flex-shrink:0}
+#status-msg span{color:var(--gold-light);font-weight:700}
+
+#info-bar{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.info-card{background:rgba(0,0,0,0.5);border:1px solid rgba(212,175,55,0.4);border-radius:6px;padding:6px 12px;text-align:center}
+.info-card .label{font-size:11px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:1px}
+.info-card .value{font-family:'Oswald',sans-serif;font-size:26px;color:var(--gold-light);letter-spacing:1px}
+
+#right-panel{width:160px;flex-shrink:0;display:flex;flex-direction:column}
+#offers-history{background:rgba(0,0,0,0.4);border:1px solid rgba(212,175,55,0.25);border-radius:8px;padding:12px;flex:1}
+#offers-title{font-size:11px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.offer-entry{padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:baseline}
+.offer-entry .round-num{color:#667;font-size:13px}
+.offer-entry .offer-val{font-family:'Oswald',sans-serif;letter-spacing:1px;color:#c8a830;font-size:17px}
+.offer-entry.accepted .offer-val{color:#40cc60}
+
+/* Overlay — two modes */
+#overlay{position:fixed;inset:0;background:rgba(0,0,10,0.88);display:flex;align-items:center;justify-content:center;z-index:100}
+#overlay.hidden{display:none}
+/* Banker overlay: light dim so prize board and offer history stay readable */
+#overlay.banker-mode{background:rgba(0,0,10,0.25);align-items:flex-start;padding-top:10px}
+
+/* Banker popup */
+#banker-popup{background:linear-gradient(160deg,#060e24ee,#0a1a40ee);border:2px solid var(--gold);border-radius:16px;padding:24px 48px 28px;max-width:480px;width:92%;text-align:center;box-shadow:0 0 60px rgba(212,175,55,0.5)}
+#banker-ring{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1a3060,#0a1540);border:2px solid var(--gold);margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
+#banker-popup-title{font-size:11px;letter-spacing:4px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:6px}
+#banker-popup-label{font-family:'Oswald',sans-serif;font-size:13px;color:#888;letter-spacing:4px;margin-bottom:4px}
+#banker-popup-amount{font-family:'Oswald',sans-serif;font-size:68px;font-weight:700;color:var(--gold-light);letter-spacing:2px;line-height:1;margin-bottom:8px;text-shadow:0 0 40px rgba(212,175,55,0.35)}
+#banker-popup-sub{font-size:13px;color:#667;margin-bottom:26px}
+#banker-popup-buttons{display:flex;gap:16px;justify-content:center}
+.btn-deal{background:linear-gradient(160deg,#1a7a30,#0f5020);border:2px solid #3acc60;color:white;font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:3px;padding:12px 40px;border-radius:8px;cursor:pointer;transition:all 0.15s}
+.btn-deal:hover{background:linear-gradient(160deg,#22a040,#157030);transform:scale(1.05)}
+.btn-nodeal{background:linear-gradient(160deg,#8a1010,#5a0808);border:2px solid #ee3030;color:white;font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:3px;padding:12px 40px;border-radius:8px;cursor:pointer;transition:all 0.15s}
+.btn-nodeal:hover{background:linear-gradient(160deg,#aa1818,#7a1010);transform:scale(1.05)}
+
+/* Generic modals */
+.modal{background:linear-gradient(160deg,#08102a,#0a1520);border:2px solid var(--gold);border-radius:14px;padding:36px;max-width:420px;width:92%;text-align:center}
+.modal-logo{font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--gold);letter-spacing:5px;text-transform:uppercase;margin-bottom:4px}
+.modal-logo span{color:white}
+.modal-tagline{font-size:11px;color:#556;letter-spacing:3px;text-transform:uppercase;margin-bottom:22px}
+.modal-body{font-size:14px;color:#99a;line-height:1.8;margin-bottom:26px}
+.modal-body strong{color:var(--gold-light)}
+.btn-start{background:linear-gradient(160deg,#c49a20,#8a6a10);border:2px solid var(--gold-light);color:white;font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:3px;padding:13px 40px;border-radius:8px;cursor:pointer;transition:all 0.15s;width:100%}
+.btn-start:hover{background:linear-gradient(160deg,#d4aa30,#9a7a18);transform:scale(1.02)}
+.end-amount{font-family:'Oswald',sans-serif;font-size:56px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin:10px 0;text-shadow:0 0 30px rgba(212,175,55,0.4)}
+.end-case{font-size:14px;color:#99a;margin-bottom:20px;line-height:1.8}
+.end-case strong{color:#e8e8e8}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div id="logo">Deal <span>or</span> No Deal</div>
+  </div>
+  <div id="main">
+    <div id="prize-board"></div>
+    <div id="center">
+      <div id="briefcase-grid"></div>
+      <div id="reveal-flash"><div id="reveal-amount"></div></div>
+      <div id="status-msg"></div>
+      <div id="info-bar">
+        <div class="info-card"><div class="label">Cases remaining</div><div class="value" id="cases-remaining">26</div></div>
+        <div class="info-card"><div class="label">Open until offer</div><div class="value" id="cases-to-open">6</div></div>
+      </div>
+    </div>
+    <div id="right-panel">
+      <div id="offers-history">
+        <div id="offers-title">Banker offers</div>
+        <div id="offers-list"><div style="font-size:13px;color:#445">None yet</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overlay" class="hidden">
+
+  <div class="modal" id="intro-modal" style="display:none">
+    <div class="modal-logo">Deal <span>or</span> No Deal</div>
+    <div class="modal-tagline">Decision Analysis Edition</div>
+    <div class="modal-body"><strong>26 briefcases</strong>, one is yours. Open cases each round to eliminate prize amounts — then decide: accept the banker's offer, or keep playing.<br><br>Good luck.</div>
+    <button class="btn-start" onclick="startGame()">Start Game</button>
+  </div>
+
+  <div id="banker-popup" style="display:none">
+    <div id="banker-ring">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+    </div>
+    <div id="banker-popup-title">The Banker</div>
+    <div id="banker-popup-label">OFFER</div>
+    <div id="banker-popup-amount">$0</div>
+    <div id="banker-popup-sub"></div>
+    <div id="banker-popup-buttons">
+      <button class="btn-deal" onclick="playerDecision(true)">DEAL</button>
+      <button class="btn-nodeal" onclick="playerDecision(false)">NO DEAL</button>
+    </div>
+  </div>
+
+  <div class="modal" id="final-modal" style="display:none">
+    <div class="modal-logo" style="font-size:30px;letter-spacing:2px;margin-bottom:14px">What's in your case?</div>
+    <div class="modal-body">You've played all the way to the end.<br>Let's see what was in your briefcase.</div>
+    <button class="btn-start" onclick="revealFinalCase()">Open my case</button>
+  </div>
+
+  <div class="modal" id="end-modal" style="display:none">
+    <div class="modal-logo">You won!</div>
+    <div class="modal-tagline" id="end-subtitle"></div>
+    <div class="end-amount" id="end-amount"></div>
+    <div class="end-case" id="end-body"></div>
+    <button class="btn-start" onclick="resetGame()">Play Again</button>
+  </div>
+
+  <div class="modal" id="deal-modal" style="display:none">
+    <div class="modal-logo" style="color:var(--gold-light)">Deal!</div>
+    <div class="modal-tagline">You took the banker's offer</div>
+    <div class="end-amount" id="deal-amount"></div>
+    <div class="end-case" id="deal-body"></div>
+    <button class="btn-start" onclick="resetGame()">Play Again</button>
+  </div>
+
+</div>
+
+<script>
+const PRIZES=[0.01,1,5,10,25,50,75,100,200,300,400,500,750,1000,5000,10000,25000,50000,75000,100000,200000,300000,400000,500000,750000,1000000];
+const DISCOUNT=[0,0.5,0.5,0.6,0.6,0.7,0.7,0.8,0.9,0.99,0.99];
+const OPENS_PER_ROUND=[0,6,5,4,3,2,1,1,1,1,1];
+const POPUPS=['intro-modal','banker-popup','final-modal','end-modal','deal-modal'];
+
+function bucket(v){if(v<=750)return'b-penny';if(v<=75000)return'b-blue';if(v<=400000)return'b-red';return'b-gold';}
+function fmt(n){if(n<1)return'$0.01';return'$'+Math.round(n).toLocaleString();}
+
+function caseSVG(stroke){
+  return`<svg class="case-svg" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="10" width="36" height="22" rx="3" fill="${stroke}" opacity="0.22"/>
+    <rect x="2" y="10" width="36" height="22" rx="3" stroke="${stroke}" stroke-width="2"/>
+    <rect x="13" y="4" width="14" height="8" rx="2" fill="none" stroke="${stroke}" stroke-width="2.2"/>
+    <rect x="2" y="10" width="36" height="5" fill="${stroke}" opacity="0.16"/>
+    <rect x="16" y="19" width="8" height="5" rx="1" fill="none" stroke="${stroke}" stroke-width="1.8" opacity="0.8"/>
+  </svg>`;
+}
+
+let S={};
+let revealTimer=null;
+let locked=false;  // blocks clicks while a case is being processed
+
+function initState(){
+  const prizes=[...PRIZES].sort(()=>Math.random()-0.5);
+  S={prizes,remaining:prizes.map((_,i)=>i),myCase:null,round:0,openedThisRound:0,needToOpen:6,phase:'choose',offers:[],offerAmount:0};
+}
+
+function startGame(){
+  hideOverlay();
+  renderAll();
+  setStatus('Choose your briefcase.');
+}
+
+function renderAll(){renderGrid();renderPrizeBoard();renderInfoBar();}
+
+function renderGrid(){
+  const g=document.getElementById('briefcase-grid');
+  g.innerHTML='';
+  for(let i=0;i<26;i++){
+    const d=document.createElement('div');
+    d.className='briefcase';
+    const sel=S.myCase===i,open=!S.remaining.includes(i);
+    if(sel){
+      d.classList.add('selected');
+      d.innerHTML=caseSVG('#ff8888')+`<div class="case-num">${i+1}</div>`;
+    } else if(open){
+      d.classList.add('opened');
+      d.innerHTML=caseSVG('#2a2a4a')+`<div class="case-num">${i+1}</div>`;
+    } else {
+      d.classList.add('closed');
+      d.innerHTML=caseSVG('#7aa0ff')+`<div class="case-num">${i+1}</div>`;
+      const idx=i;
+      d.addEventListener('click',()=>handleCase(idx));
+    }
+    g.appendChild(d);
+  }
+}
+
+function renderPrizeBoard(){
+  const b=document.getElementById('prize-board');
+  b.innerHTML='';
+  [...PRIZES].sort((a,c)=>a-c).forEach(prize=>{
+    const idx=S.prizes.indexOf(prize);
+    const elim=!S.remaining.includes(idx);
+    const d=document.createElement('div');
+    d.className='prize-item '+bucket(prize)+(elim?' eliminated':'');
+    d.innerHTML=`<span class="prize-amount">${fmt(prize)}</span>`;
+    b.appendChild(d);
+  });
+}
+
+function renderInfoBar(){
+  document.getElementById('cases-remaining').textContent=S.remaining.length;
+  const toOpen=(S.phase==='banker'||S.phase==='end')?0:Math.max(0,S.needToOpen-S.openedThisRound);
+  document.getElementById('cases-to-open').textContent=toOpen;
+}
+
+function renderOffersHistory(){
+  const list=document.getElementById('offers-list');
+  if(!S.offers.length){list.innerHTML='<div style="font-size:13px;color:#445">None yet</div>';return;}
+  list.innerHTML='';
+  S.offers.forEach((o,i)=>{
+    const d=document.createElement('div');
+    d.className='offer-entry'+(o.accepted?' accepted':'');
+    d.innerHTML=`<span class="round-num">R${i+1}</span><span class="offer-val">${fmt(o.amount)}</span>`;
+    list.appendChild(d);
+  });
+}
+
+function showReveal(val){
+  if(revealTimer)clearTimeout(revealTimer);
+  const el=document.getElementById('reveal-amount');
+  const cols={'b-penny':'#bbbbbb','b-blue':'#4a9eff','b-red':'#ff5555','b-gold':'#ffd700'};
+  el.style.color=cols[bucket(val)]||'#f5d060';
+  el.textContent=fmt(val);
+  el.className='show';
+  revealTimer=setTimeout(()=>{
+    el.classList.add('fade');
+    revealTimer=setTimeout(()=>{el.className='';el.textContent='';},700);
+  },2200);
+}
+
+function handleCase(idx){
+  if(locked)return;
+  if(S.phase==='choose'){
+    S.myCase=idx;S.phase='open';S.round=1;S.openedThisRound=0;S.needToOpen=OPENS_PER_ROUND[1];
+    renderAll();setStatus(`Case ${idx+1} is yours! Open <span>${S.needToOpen}</span> briefcases.`);
+  } else if(S.phase==='open'){
+    // If only 1 non-player case remains, stop and go to final reveal instead
+    const avail=S.remaining.filter(i=>i!==S.myCase);
+    if(avail.length<=1){showFinalReveal();return;}
+    locked=true;
+    const val=S.prizes[idx];
+    S.remaining=S.remaining.filter(i=>i!==idx);
+    S.openedThisRound++;
+    renderAll();
+    showReveal(val);
+    const left=S.needToOpen-S.openedThisRound;
+    if(left>0){
+      setStatus(`Open <span>${left}</span> more.`);
+      // Unlock after brief delay so double-clicks in quick succession are absorbed
+      setTimeout(()=>{locked=false;},400);
+    } else {
+      setStatus('');
+      setTimeout(()=>{locked=false;triggerOffer();},700);
+    }
+  }
+}
+
+function triggerOffer(){
+  const avail=S.remaining.filter(i=>i!==S.myCase);
+  if(avail.length===0){showFinalReveal();return;}
+  S.phase='banker';
+  const ev=avail.reduce((s,i)=>s+S.prizes[i],0)/avail.length;
+  S.offerAmount=Math.round(ev*DISCOUNT[Math.min(S.round,10)]);
+  S.offers.push({amount:S.offerAmount,accepted:false});
+  renderAll();renderOffersHistory();
+  document.getElementById('banker-popup-amount').textContent=fmt(S.offerAmount);
+  document.getElementById('banker-popup-sub').textContent=`Round ${S.round} · ${S.remaining.length} cases remaining`;
+  showPopup('banker-popup');
+}
+
+function showFinalReveal(){
+  S.phase='end';renderAll();showPopup('final-modal');
+}
+
+function revealFinalCase(){
+  const val=S.prizes[S.myCase];
+  document.getElementById('end-amount').textContent=fmt(val);
+  document.getElementById('end-subtitle').textContent='Your briefcase contained';
+  document.getElementById('end-body').innerHTML='You played all the way to the end — well done!';
+  showPopup('end-modal');
+}
+
+function playerDecision(deal){
+  if(deal){
+    S.offers[S.offers.length-1].accepted=true;
+    S.phase='end';
+    renderOffersHistory();
+    const caseVal=S.prizes[S.myCase];
+    document.getElementById('deal-amount').textContent=fmt(S.offerAmount);
+    document.getElementById('deal-body').innerHTML=`Your briefcase contained <strong>${fmt(caseVal)}</strong>.`
+      +(S.offerAmount>caseVal?'<br><span style="color:#40cc60">You beat your case!</span>':'<br><span style="color:#ee4444">Your case was worth more.</span>');
+    showPopup('deal-modal');
+  } else {
+    S.round++;S.openedThisRound=0;
+    S.needToOpen=S.round<=6?OPENS_PER_ROUND[S.round]:1;
+    S.phase='open';S.offerAmount=0;
+    hideOverlay();renderAll();
+    setStatus(`No deal! Open <span>${S.needToOpen}</span> briefcase${S.needToOpen>1?'s':''}.`);
+  }
+}
+
+function showPopup(id){
+  POPUPS.forEach(p=>document.getElementById(p).style.display='none');
+  document.getElementById(id).style.display='block';
+  const ov=document.getElementById('overlay');
+  ov.classList.remove('hidden');
+  if(id==='banker-popup')ov.classList.add('banker-mode');
+  else ov.classList.remove('banker-mode');
+}
+
+function hideOverlay(){
+  POPUPS.forEach(p=>document.getElementById(p).style.display='none');
+  const ov=document.getElementById('overlay');
+  ov.classList.add('hidden');
+  ov.classList.remove('banker-mode');
+  locked=false;
+}
+
+function resetGame(){
+  document.getElementById('offers-list').innerHTML='<div style="font-size:13px;color:#445">None yet</div>';
+  const ra=document.getElementById('reveal-amount');ra.className='';ra.textContent='';
+  setStatus('');initState();renderAll();showPopup('intro-modal');
+}
+
+function setStatus(msg){document.getElementById('status-msg').innerHTML=msg;}
+
+initState();
+renderAll();
+showPopup('intro-modal');
+</script>
+</body>
+</html>
