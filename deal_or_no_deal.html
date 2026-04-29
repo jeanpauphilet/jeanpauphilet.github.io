@@ -21,22 +21,22 @@ body{font-family:'Roboto Condensed',sans-serif;color:#e8e8e8;overflow:hidden}
 #main{display:flex;flex:1;gap:12px;padding:12px;overflow:hidden;min-height:0}
 
 /* Prize board */
-#prize-board{width:200px;flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(13,1fr);grid-auto-flow:column;gap:3px}
-.prize-item{display:flex;align-items:center;justify-content:flex-end;padding:3px 8px;border-radius:3px;border:1px solid;transition:all 0.3s}
+#prize-board{width:240px;flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(13,1fr);grid-auto-flow:column;gap:3px}
+.prize-item{display:flex;align-items:center;justify-content:flex-end;padding:3px 10px;border-radius:3px;border:1.5px solid;transition:all 0.3s}
 .prize-item.eliminated{opacity:0.15;text-decoration:line-through}
-.prize-amount{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.5px}
-.b-penny{border-color:rgba(170,170,170,0.3);background:rgba(150,150,150,0.12)}
-.b-penny .prize-amount{color:#bbbbbb}
-.b-blue{border-color:rgba(74,158,255,0.35);background:rgba(74,158,255,0.1)}
+.prize-amount{font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;letter-spacing:0.5px}
+.b-penny{border-color:#555;background:rgba(150,150,150,0.12)}
+.b-penny .prize-amount{color:#cccccc}
+.b-blue{border-color:#2060cc;background:rgba(74,158,255,0.1)}
 .b-blue .prize-amount{color:#4a9eff}
-.b-red{border-color:rgba(255,68,68,0.35);background:rgba(255,68,68,0.1)}
+.b-red{border-color:#992020;background:rgba(255,68,68,0.1)}
 .b-red .prize-amount{color:#ff5555}
-.b-gold{border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.1)}
+.b-gold{border-color:#aa8800;background:rgba(255,215,0,0.1)}
 .b-gold .prize-amount{color:#ffd700}
 
 #center{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
 
-#briefcase-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;flex:1;min-height:0}
+#briefcase-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;flex:1;min-height:0}
 .briefcase{
   border-radius:8px;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -47,8 +47,8 @@ body{font-family:'Roboto Condensed',sans-serif;color:#e8e8e8;overflow:hidden}
 .briefcase.closed:hover{background:linear-gradient(160deg,#2a50aa,#1a3080);transform:translateY(-2px);box-shadow:0 6px 18px rgba(30,80,255,0.5);border-color:#7aa0ff}
 .briefcase.selected{background:linear-gradient(160deg,#6a0a0a,#400505);border-color:#ff6060;color:#ffb0b0;cursor:default}
 .briefcase.opened{background:#0a0a18;border-color:#1a1a2a;color:#2a2a3a;cursor:default;opacity:0.45}
-.case-svg{width:36px;height:30px;margin-bottom:3px;flex-shrink:0}
-.case-num{font-size:15px;line-height:1}
+.case-svg{width:26px;height:22px;margin-bottom:2px;flex-shrink:0}
+.case-num{font-size:19px;line-height:1}
 
 #reveal-flash{text-align:center;height:56px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 #reveal-amount{font-family:'Oswald',sans-serif;font-size:52px;font-weight:700;letter-spacing:2px;opacity:0;transition:opacity 0.2s;line-height:1}
@@ -63,12 +63,12 @@ body{font-family:'Roboto Condensed',sans-serif;color:#e8e8e8;overflow:hidden}
 .info-card .label{font-size:11px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:1px}
 .info-card .value{font-family:'Oswald',sans-serif;font-size:26px;color:var(--gold-light);letter-spacing:1px}
 
-#right-panel{width:160px;flex-shrink:0;display:flex;flex-direction:column}
+#right-panel{width:190px;flex-shrink:0;display:flex;flex-direction:column}
 #offers-history{background:rgba(0,0,0,0.4);border:1px solid rgba(212,175,55,0.25);border-radius:8px;padding:12px;flex:1}
-#offers-title{font-size:11px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+#offers-title{font-size:13px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
 .offer-entry{padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:baseline}
-.offer-entry .round-num{color:#667;font-size:13px}
-.offer-entry .offer-val{font-family:'Oswald',sans-serif;letter-spacing:1px;color:#c8a830;font-size:17px}
+.offer-entry .round-num{color:#667;font-size:15px}
+.offer-entry .offer-val{font-family:'Oswald',sans-serif;letter-spacing:1px;color:#c8a830;font-size:21px}
 .offer-entry.accepted .offer-val{color:#40cc60}
 
 /* Overlay — two modes */
@@ -287,7 +287,7 @@ function handleCase(idx){
     S.myCase=idx;S.phase='open';S.round=1;S.openedThisRound=0;S.needToOpen=OPENS_PER_ROUND[1];
     renderAll();setStatus(`Case ${idx+1} is yours! Open <span>${S.needToOpen}</span> briefcases.`);
   } else if(S.phase==='open'){
-    // If only 1 non-player case remains, stop and go to final reveal instead
+    // If only the player's case remains, go to final reveal
     const avail=S.remaining.filter(i=>i!==S.myCase);
     if(avail.length<=1){showFinalReveal();return;}
     locked=true;
@@ -309,8 +309,8 @@ function handleCase(idx){
 }
 
 function triggerOffer(){
-  const avail=S.remaining.filter(i=>i!==S.myCase);
-  if(avail.length===0){showFinalReveal();return;}
+  const avail=S.remaining;
+  if(avail.length<=1){showFinalReveal();return;}
   S.phase='banker';
   const ev=avail.reduce((s,i)=>s+S.prizes[i],0)/avail.length;
   S.offerAmount=Math.round(ev*DISCOUNT[Math.min(S.round,10)]);
